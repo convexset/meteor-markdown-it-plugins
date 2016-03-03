@@ -13,7 +13,6 @@ A bunch of plugins for markdown-it wrapped for Meteor.
 - [The Plugins](#the-plugins)
   - [markdown-it-abbr](#markdown-it-abbr)
   - [markdown-it-attrs](#markdown-it-attrs)
-    - [Ambiguity](#ambiguity)
   - [markdown-it-sub](#markdown-it-sub)
   - [markdown-it-sup](#markdown-it-sup)
   - [markdown-it-regexp](#markdown-it-regexp)
@@ -166,7 +165,8 @@ Output:
 
 **Note:** Plugin does not validate any input, so you should validate the attributes in your html output if security is a concern.
 
-#### Ambiguity
+_** Ambiguity**_
+
 When class can be applied to both inline or block element, inline element will take precedence:
 ```md
 - list item **bold**{.red}
