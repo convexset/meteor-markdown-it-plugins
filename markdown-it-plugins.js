@@ -25,4 +25,4 @@ PackageUtilities.addImmutablePropertyFunction(MarkdownItPlugins, 'get', function
 		}
 		return ret;
 	}
-})
+});

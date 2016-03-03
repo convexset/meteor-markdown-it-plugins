@@ -14,3 +14,6 @@ fakeRequire = function fakeRequire(name) {
 		console.warn('[FakeRequire] ' + name + ' not registered');
 	}
 };
+
+PackageUtilities.addImmutablePropertyFunction(MarkdownItPlugins, '_fakeRequire', fakeRequire);
+PackageUtilities.addImmutablePropertyFunction(MarkdownItPlugins, '_fakeRequireList', () => Object.keys(items));

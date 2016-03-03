@@ -1,6 +1,6 @@
 Package.describe({
 	name: 'convexset:markdown-it-plugins',
-	version: '0.0.1',
+	version: '0.0.2',
 	summary: 'Some plugins for MarkdownIt',
 	git: 'https://github.com/convexset/meteor-markdown-it-plugins',
 	documentation: 'README.md'
@@ -10,17 +10,41 @@ Package.onUse(function(api) {
 	api.versionsFrom('1.2.1');
 	api.use([
 		'ecmascript',
+		'es5-shim',
 		'underscore',
 		'convexset:package-utils@0.1.12',
+		'convexset:string.js@3.3.1',
 		'stevezhu:lodash@4.5.1',
 		// 'peerlibrary:util@0.3.0'
 	]);
 
+	////////////////////////////////////////////////////////////////////////
+	// Core
+	////////////////////////////////////////////////////////////////////////
 	api.addFiles('markdown-it-plugins.js');
+    api.export('MarkdownItPlugins');
 
+	////////////////////////////////////////////////////////////////////////
+	// Fake Require
+	////////////////////////////////////////////////////////////////////////
 	api.addFiles('tools/fake-require.js');
-	api.addFiles('tools/string/string.js');
+	api.addFiles('tools/registrations.js');
+
+	////////////////////////////////////////////////////////////////////////
+	// Fake Require Registrations
+	////////////////////////////////////////////////////////////////////////	
+	api.addFiles('tools/underscore/underscore-1.8.3.js');
+
+	api.addFiles('tools/util-browser/0.0.2/inherits.js');
+	api.addFiles('tools/util-browser/0.0.2/process.js');
+	api.addFiles('tools/util-browser/0.0.2/is-buffer.js');
+	api.addFiles('tools/util-browser/0.0.2/util-browser.js');
 	
+	////////////////////////////////////////////////////////////////////////
+	// The Plugins
+	////////////////////////////////////////////////////////////////////////
+	api.addFiles('plugins/markdown-it-abbr.js');
+	api.addFiles('plugins/markdown-it-attrs.js');
 	api.addFiles('plugins/markdown-it-sub.js');
 	api.addFiles('plugins/markdown-it-sup.js');
 	api.addFiles('plugins/markdown-it-regexp.js');
@@ -28,5 +52,4 @@ Package.onUse(function(api) {
 	api.addFiles('plugins/mdvariables.js');
 	api.addFiles('plugins/mdvariables-enhanced.js');
 
-    api.export('MarkdownItPlugins');
 });

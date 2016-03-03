@@ -9,6 +9,7 @@
  */
 
 // var util  = require('util')
+var util = fakeRequire('util-browser');
 // var stuff = require('./utils')
 
 // var stuff = {
@@ -75,9 +76,7 @@ function Plugin(regexp, replacer) {
 	return self
 }
 
-// util.inherits(Plugin, Function)
-Plugin.prototype = Object.create(Function.prototype);
-Plugin.super_ = Function;
+util.inherits(Plugin, Function)
 
 
 // function that registers plugin with markdown-it

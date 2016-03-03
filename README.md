@@ -11,6 +11,9 @@ A bunch of plugins for markdown-it wrapped for Meteor.
 - [Install](#install)
 - [Usage](#usage)
 - [The Plugins](#the-plugins)
+  - [markdown-it-abbr](#markdown-it-abbr)
+  - [markdown-it-attrs](#markdown-it-attrs)
+    - [Ambiguity](#ambiguity)
   - [markdown-it-sub](#markdown-it-sub)
   - [markdown-it-sup](#markdown-it-sup)
   - [markdown-it-regexp](#markdown-it-regexp)
@@ -102,6 +105,97 @@ markdownRenderer
 
 ## The Plugins
 
+
+### markdown-it-abbr
+
+ - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-abbr)
+ - **Defaults**: None
+ - **Is Modified Package**: No
+
+```javascript
+var markdownItAbbrPlugin = MarkdownItPlugins.getPlugin('markdown-it-abbr');
+markdownRenderer.use(markdownItAbbrPlugin);
+```
+
+The following
+```
+*[HTML]: Hyper Text Markup Language
+*[W3C]:  World Wide Web Consortium
+The HTML specification
+is maintained by the W3C.
+```
+generates
+```html
+<p>The <abbr title="Hyper Text Markup Language">HTML</abbr> specification
+is maintained by the <abbr title="World Wide Web Consortium">W3C</abbr>.</p>
+```
+
+
+### markdown-it-attrs
+
+Add classes, identifiers and attributes to your markdown with `{.class #identifier attr=value attr2="spaced value"}` curly brackets, similar to [pandoc's header attributes](http://pandoc.org/README.html#extension-header_attributes).
+
+ - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-attrs)
+ - **Defaults**: None
+ - **Is Modified Package**: No
+
+```javascript
+var markdownItAttrsPlugin = MarkdownItPlugins.getPlugin('markdown-it-attrs');
+markdownRenderer.use(markdownItAbbrPlugin);
+```
+
+Example input:
+```md
+paragraph {data-toggle=modal}
+```
+
+Output:
+```html
+<p data-toggle="modal">paragraph</p>
+```
+
+Works with inline elements too:
+```md
+paragraph *style me*{.red} more text
+```
+
+Output:
+```html
+<p>paragraph <em class="red">style me</em> more text</p>
+```
+
+**Note:** Plugin does not validate any input, so you should validate the attributes in your html output if security is a concern.
+
+#### Ambiguity
+When class can be applied to both inline or block element, inline element will take precedence:
+```md
+- list item **bold**{.red}
+```
+
+Output:
+```html
+<ul>
+<li>list item <strong class="red">bold</strong></li>
+<ul>
+```
+
+If you need the class to apply to the list item instead:
+```md
+- list item **bold**
+{.red}
+```
+
+Output:
+```html
+<ul>
+<li class="red">list item <strong>bold</strong>
+</li>
+</ul>
+```
+
+If you need finer control, look into [decorate](https://github.com/rstacruz/markdown-it-decorate).
+
+
 ### markdown-it-sub
 
  - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-sub)
@@ -152,7 +246,7 @@ Note that `utils` here only contains the `escape` method.
 
 ### markdown-it-regexp-enhanced
 
- - **Original Source**: [markdown-it-regexp](#markdown-it-regexp)
+ - **Original Source**: See [markdown-it-regexp](#markdown-it-regexp)
  - **Defaults**: None
  - **Is Modified Package**: Yes
 
