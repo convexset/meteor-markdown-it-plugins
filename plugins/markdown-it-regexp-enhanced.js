@@ -77,7 +77,8 @@ function Plugin(regexp, replacer) {
 
 	// this plugin can be inserted multiple times,
 	// so we're generating unique name for it
-	self.id = 'regexp-' + counter
+	// self.id = 'regexp-' + counter
+	self.id = 'regexp-enhanced-' + counter
 	counter++
 
 	return self
