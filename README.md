@@ -14,6 +14,7 @@ A bunch of plugins for markdown-it wrapped for Meteor.
   - [markdown-it-abbr](#markdown-it-abbr)
   - [markdown-it-anchor](#markdown-it-anchor)
   - [markdown-it-attrs](#markdown-it-attrs)
+  - [markdown-it-center-text](#markdown-it-center-text)
   - [markdown-it-checkbox](#markdown-it-checkbox)
   - [markdown-it-emoji](#markdown-it-emoji)
   - [markdown-it-expand-tabs](#markdown-it-expand-tabs)
@@ -242,12 +243,28 @@ Output:
 If you need finer control, look into [decorate](https://github.com/rstacruz/markdown-it-decorate).
 
 
+### markdown-it-center-text
+
+ - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-center-text)
+ - **Defaults**: None
+ - **Is Modified Package**: No
+
+```javascript
+var markdownItCenterTextPlugin = MarkdownItPlugins.getPlugin('markdown-it-center-text');
+markdownRenderer
+    .use(markdownItCenterTextPlugin);
+
+markdownRenderer.render('->Centered Text<-') // =>
+// <div style="text-align: center;">Centered Text</div>
+```
+
+
 ### markdown-it-checkbox
 
 This plugin allows to create checkboxes for tasklists as discussed [here](http://talk.commonmark.org/t/task-lists-in-standard-markdown/41).
 
  - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-checkbox)
- - **Defaults**: None
+ - **Defaults**: Yes
  - **Is Modified Package**: No
 
 ```javascript
