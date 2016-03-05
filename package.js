@@ -51,6 +51,7 @@ Package.onUse(function(api) {
 	api.addFiles('plugins/markdown-it-container.js');
 	api.addFiles('plugins/markdown-it-emoji.js');
 	api.addFiles('plugins/markdown-it-expand-tabs.js');
+	api.addFiles('plugins/markdown-it-footnote.js');
 	api.addFiles('plugins/markdown-it-implicit-figures.js');
 	api.addFiles('plugins/markdown-it-regexp.js');
 	api.addFiles('plugins/markdown-it-regexp-enhanced.js');
