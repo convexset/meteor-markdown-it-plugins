@@ -76,16 +76,9 @@ markdownRenderer
     .use(somePlugin2, opts);
 ```
 
-Some plugins admit options and may be loaded as outlined in the [documentation of markdown-it](https://github.com/markdown-it/markdown-it#plugins-load):
-```javascript
-markdownRenderer
-    .use(somePlugin1)
-    .use(somePlugin2, opts);
-```
-
 Default options can be loaded as follows:
 ```javascript
-var opts = MarkdownItPlugins.getDefaults('pluginName');
+var opts = MarkdownItPlugins.getDefaultOptions('pluginName');
 var plugin = MarkdownItPlugins.getPlugin('pluginName');
 
 markdownRenderer

@@ -9,7 +9,7 @@ PackageUtilities.addImmutablePropertyFunction(MarkdownItPlugins, 'getPlugin', fu
 	return MarkdownItPlugins.get(name).plugin;
 });
 
-PackageUtilities.addImmutablePropertyFunction(MarkdownItPlugins, 'getDefaults', function getDefaults(name) {
+PackageUtilities.addImmutablePropertyFunction(MarkdownItPlugins, 'getDefaultOptions', function getDefaults(name) {
 	return MarkdownItPlugins.get(name).defaultOptions;
 });
 
