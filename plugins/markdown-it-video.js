@@ -112,7 +112,7 @@ function video_embed(md) {
         }
 
         // state.pos = state.pos + state.src.indexOf(')');
-        state.pos = state.pos + balanceSrc.indexOf(')');
+        state.pos = state.pos + balanceSrc.indexOf(')') - 1;
 
         state.posMax = state.tokens.length;
 
