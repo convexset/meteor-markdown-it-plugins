@@ -141,7 +141,7 @@ function tokenize_video(md) {
         // console.log('[tokenize_return]', ({tokens: tokens, idx: idx, options: options, env: env, self: self}))
         var videoID = md.utils.escapeHtml(tokens[idx].videoID);
         var service = md.utils.escapeHtml(tokens[idx].service);
-        console.log(videoID, service, arguments)
+        // console.log(videoID, service, arguments)
         if (videoID === '') {
             return '';
         }
