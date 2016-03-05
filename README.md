@@ -716,17 +716,17 @@ markdownRenderer
     });
 
 // unknown tag
-md.render('<u>test</u>'); // => '<p>&lt;u&gt;test&lt;/u&gt;</p>'
+markdownRenderer.render('<u>test</u>'); // => '<p>&lt;u&gt;test&lt;/u&gt;</p>'
 // unknown tag with removeUnknown: true
-md.render('<u>test</u>'); // => '<p>test</p>'
+markdownRenderer.render('<u>test</u>'); // => '<p>test</p>'
 
 // unbalanced tags
-md.render('<b>test</em>'); // => '<p>&lt;b&gt;test&lt;/em&gt;</p>'
+markdownRenderer.render('<b>test</em>'); // => '<p>&lt;b&gt;test&lt;/em&gt;</p>'
 // unbalanced tags with removeUnbalanced: true
-md.render('<b>test</em>'); // => '<p>test</p>'
+markdownRenderer.render('<b>test</em>'); // => '<p>test</p>'
 
 // imageClass: 'img-responsive'
-md.render('<img src="http://example.com/image.png" alt="image" title="example">'); // => '<p><img src="http://example.com/image.png" alt="image" title="example" class="img-responsive"></p>'
+markdownRenderer.render('<img src="http://example.com/image.png" alt="image" title="example">'); // => '<p><img src="http://example.com/image.png" alt="image" title="example" class="img-responsive"></p>'
 ```
 
 ### markdown-it-smartarrows
