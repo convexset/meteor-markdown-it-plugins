@@ -58,12 +58,19 @@ function Plugin(regexp, replacer) {
 	}
 
 	// initialize plugin object
-	self.__proto__ = Plugin.prototype
+	// self.__proto__ = Plugin.prototype
+	self.init = plugin_init;
+	self.parse = plugin_parse;
+	self.render = plugin_render;
 
 	// clone regexp with all the flags
 	var flags = (regexp.global ? 'g' : '') + (regexp.multiline ? 'm' : '') + (regexp.ignoreCase ? 'i' : '')
 
-	self.regexp = RegExp('^' + regexp.source, flags)
+	// self.regexp = RegExp('^' + regexp.source, flags)
+	// compile causes crash!?
+	var regexp = new RegExp('^' + regexp.source, flags);
+	// regexp.compile();
+	self.regexp = regexp;
 
 	// copy init options
 	self.replacer = replacer
@@ -80,13 +87,15 @@ util.inherits(Plugin, Function)
 
 
 // function that registers plugin with markdown-it
-Plugin.prototype.init = function(md) {
+// Plugin.prototype.init = function(md) {
+function plugin_init(md) {
 	md.inline.ruler.push(this.id, this.parse.bind(this))
 
 	md.renderer.rules[this.id] = this.render.bind(this)
 }
 
-Plugin.prototype.parse = function(state, silent) {
+// Plugin.prototype.parse = function(state, silent) {
+function plugin_parse(state, silent) {
 	// slowwww... maybe use an advanced regexp engine for this
 	var match = this.regexp.exec(state.src.slice(state.pos))
 	if (!match) return false
@@ -105,7 +114,8 @@ Plugin.prototype.parse = function(state, silent) {
 	return true
 }
 
-Plugin.prototype.render = function(tokens, id, options, env) {
+// Plugin.prototype.render = function(tokens, id, options, env) {
+function plugin_render(tokens, id, options, env) {
 	return this.replacer(tokens[id].meta.match, stuff)
 }
 
