@@ -15,6 +15,7 @@ A bunch of plugins for markdown-it wrapped for Meteor.
   - [markdown-it-anchor](#markdown-it-anchor)
   - [markdown-it-attrs](#markdown-it-attrs)
   - [markdown-it-checkbox](#markdown-it-checkbox)
+  - [markdown-it-emoji](#markdown-it-emoji)
   - [markdown-it-sub](#markdown-it-sub)
   - [markdown-it-sup](#markdown-it-sup)
   - [markdown-it-regexp](#markdown-it-regexp)
@@ -294,6 +295,78 @@ markdownRenderer.render('[ ] unchecked') // =>
 //    <label for="cbx_0">unchecked</label>
 //  </div>
 // </p>
+```
+
+
+### markdown-it-emoji
+
+Two versions:
+
+- __Full__ (default), with all github supported emojies.
+- [Light](https://github.com/markdown-it/markdown-it-emoji/blob/master/lib/data/light.json), with only well supported unicode emojies and reduced size.
+
+Also supports emoticons [shortcuts](https://github.com/markdown-it/markdown-it-emoji/blob/master/lib/data/shortcuts.js) like `:)`, `:-(`, and other. See full list in link above.
+
+ - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-emoji)
+ - **Defaults**: None
+ - **Is Modified Package**: No
+
+```javascript
+var markdownItEmojiPlugin = MarkdownItPlugins.getPlugin('markdown-it-emoji');
+markdownRenderer
+    .use(markdownItEmojiPlugin);
+
+// or...
+// markdownRenderer
+//    .use(markdownItEmojiPlugin, options);
+
+markdownRenderer.render('H~2~0') // => '<p>H<sub>2</sub>O</p>'
+```
+
+**Options:**
+- __defs__ (Object) - rewrite available emojies definitions
+  - example: `{ name1: char1, name2: char2, ... }`
+- __enabled__ (Array) - disable all emojies except whitelisted
+- __shortcuts__ (Object) - rewrite default shortcuts
+  - example: `{ "smile": [ ":)", ":-)" ], "laughing": ":D" }`
+
+By default, emojies are rendered as appropriate unicode chars. But you can change
+renderer function as you wish.
+
+Render as span blocks (for example, to use custom iconic font):
+
+```js
+// ...
+// initialize
+
+markdownRenderer.renderer.rules.emoji = function(token, idx) {
+  return '<span class="emoji emoji_' + token[idx].markup + '"></span>';
+};
+```
+
+Or use [twemoji](https://github.com/twitter/twemoji):
+
+```js
+// ...
+// initialize
+
+var twemoji = require('twemoji')
+
+markdownRenderer.renderer.rules.emoji = function(token, idx) {
+  return twemoji.parse(token[idx].content);
+};
+```
+
+__NB 1__. Read [twemoji docs](https://github.com/twitter/twemoji#string-parsing)!
+May be you need more options to change image size & type.
+
+__NB 2__. For twemoji you can like to fit image height to line height with this
+style:
+
+```css
+.emoji {
+  height: 1.2em;
+}
 ```
 
 
