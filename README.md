@@ -309,7 +309,7 @@ Two versions:
 Also supports emoticons [shortcuts](https://github.com/markdown-it/markdown-it-emoji/blob/master/lib/data/shortcuts.js) like `:)`, `:-(`, and other. See full list in link above.
 
  - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-emoji)
- - **Defaults**: None
+ - **Defaults**: Yes
  - **Is Modified Package**: No
 
 ```javascript
@@ -383,7 +383,7 @@ take up less visual space horizontally. This plugin will help. If you're not in 
 situation, then this plugin probably isn't for you.
 
  - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-expand-tabs)
- - **Defaults**: None
+ - **Defaults**: Yes
  - **Is Modified Package**: No
 
 ```javascript

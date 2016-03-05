@@ -13,7 +13,6 @@ function expandTabsPlugin(md, opts) {
   // patch the current rule, don't replace it completely
   var originalRule = md.renderer.rules.fence;
   md.renderer.rules.fence = function(tokens, idx, options, env, self) {
-    console.log('[fence]', tokens, idx, options, env, self)
     tokens[idx].content = expandTabs(tokens[idx].content, tabWidth);
     return originalRule.call(this, tokens, idx, options, env, self);
   };
@@ -21,7 +20,6 @@ function expandTabsPlugin(md, opts) {
   // do the tab/space replacement
   function expandTabs(content, tabWidth) {
     var idx = 0;
-    console.log('[expandTabs]', content, tabWidth)
 
     // while we're not at the end of the string:
     // - is the character at the current position a tab?
@@ -43,5 +41,8 @@ function expandTabsPlugin(md, opts) {
 
 
 _MarkdownItPlugins['markdown-it-expand-tabs'] = {
-  plugin: expandTabsPlugin
+  plugin: expandTabsPlugin,
+  defaultOptions: {
+    tabWidth: 2
+  }
 };
