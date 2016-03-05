@@ -19,6 +19,7 @@ A bunch of plugins for markdown-it wrapped for Meteor.
   - [markdown-it-container](#markdown-it-container)
   - [markdown-it-emoji](#markdown-it-emoji)
   - [markdown-it-expand-tabs](#markdown-it-expand-tabs)
+  - [markdown-it-implicit-figures](#markdown-it-implicit-figures)
   - [markdown-it-regexp](#markdown-it-regexp)
   - [markdown-it-regexp-enhanced](#markdown-it-regexp-enhanced)
   - [markdown-it-sub](#markdown-it-sub)
@@ -496,6 +497,53 @@ markdownRenderer
     .use(markdownItExpandTabsPlugin, {tabWidth: 4});
 ```
 
+
+### markdown-it-implicit-figures
+
+Render images occurring by itself in a paragraph as `<figure><img ...></figure>`, similar to [pandoc's implicit figures](http://pandoc.org/README.html#images).
+
+ - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-implicit-figures)
+ - **Defaults**: Yes
+ - **Is Modified Package**: No
+
+```javascript
+var markdownItImplicitFiguresPlugin = MarkdownItPlugins.getPlugin('markdown-it-implicit-figures');
+markdownRenderer
+    .use(markdownItImplicitFiguresPlugin, {
+        dataType: false,  // declares data-type like <figure data-type="image">, default: false
+        figcaption: false  // adds <figcaption>alternative text</figcaption>, default: false
+    });
+```
+
+Example input:
+```md
+text with ![](img.png)
+
+![](fig.png)
+
+another paragraph
+```
+
+Output:
+```html
+<p>text with <img src="img.png" alt=""></p>
+<figure><img src="fig.png" alt=""></figure>
+<p>another paragraph</p>
+```
+
+**Options**:
+- `dataType`: Set `dataType` to `true` to declare the data-type being wrapped,
+  e.g.: `<figure data-type="image">`. This can be useful for applying special
+  styling for different kind of figures.
+- `figcaption`: Set `figcaption` to `true` to put the alternative text in a
+  `<figcaption>`-block after the image. E.g.: `![text](img.png)` renders to
+
+  ```html
+  <figure>
+    <img src="img.png" alt="text">
+    <figcaption>text</figcaption>
+  </figure>
+  ```
 
 ### markdown-it-regexp
 
