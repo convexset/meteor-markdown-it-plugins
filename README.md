@@ -22,6 +22,7 @@ A bunch of plugins for markdown-it wrapped for Meteor.
   - [markdown-it-implicit-figures](#markdown-it-implicit-figures)
   - [markdown-it-regexp](#markdown-it-regexp)
   - [markdown-it-regexp-enhanced](#markdown-it-regexp-enhanced)
+  - [markdown-it-smartarrows](#markdown-it-smartarrows)
   - [markdown-it-sub](#markdown-it-sub)
   - [markdown-it-sup](#markdown-it-sup)
   - [markdown-it-table-of-contents](#markdown-it-table-of-contents)
@@ -587,6 +588,32 @@ can be achieved with `utils`
 ```javascript
 utils.between('<a>foo</a>, '<a>', '</a>') // => 'foo'
 ```
+
+
+### markdown-it-smartarrows
+
+This is a [markdown-it](https://github.com/markdown-it/markdown-it) plugin that adds "smart arrows" to markdown-it's typographic enhancements.
+
+```
+--> →
+<-- ←
+<--> ↔
+==> ⇒
+<== ⇐
+<==> ⇔
+```
+
+ - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-smartarrows)
+ - **Defaults**: None
+ - **Is Modified Package**: No
+
+```javascript
+var markdownItSmartArrowsPlugin = MarkdownItPlugins.getPlugin('markdown-it-smartarrows');
+markdownRenderer
+    .use(markdownItSmartArrowsPlugin);
+```
+
+Note that using this plugin will interfere with using HTML comments in your Markdown. 
 
 
 ### markdown-it-sub

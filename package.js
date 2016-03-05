@@ -54,6 +54,7 @@ Package.onUse(function(api) {
 	api.addFiles('plugins/markdown-it-implicit-figures.js');
 	api.addFiles('plugins/markdown-it-regexp.js');
 	api.addFiles('plugins/markdown-it-regexp-enhanced.js');
+	api.addFiles('plugins/markdown-it-smartarrows.js');
 	api.addFiles('plugins/markdown-it-sub.js');
 	api.addFiles('plugins/markdown-it-sup.js');
 	api.addFiles('plugins/markdown-it-table-of-contents.js');
