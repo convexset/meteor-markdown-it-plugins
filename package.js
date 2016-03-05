@@ -51,10 +51,11 @@ Package.onUse(function(api) {
 	api.addFiles('plugins/markdown-it-container.js');
 	api.addFiles('plugins/markdown-it-emoji.js');
 	api.addFiles('plugins/markdown-it-expand-tabs.js');
-	api.addFiles('plugins/markdown-it-sub.js');
-	api.addFiles('plugins/markdown-it-sup.js');
 	api.addFiles('plugins/markdown-it-regexp.js');
 	api.addFiles('plugins/markdown-it-regexp-enhanced.js');
+	api.addFiles('plugins/markdown-it-sub.js');
+	api.addFiles('plugins/markdown-it-sup.js');
+	api.addFiles('plugins/markdown-it-table-of-contents.js');
 	api.addFiles('plugins/mdvariables.js');
 	api.addFiles('plugins/mdvariables-enhanced.js');
 

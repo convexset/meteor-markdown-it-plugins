@@ -19,10 +19,11 @@ A bunch of plugins for markdown-it wrapped for Meteor.
   - [markdown-it-container](#markdown-it-container)
   - [markdown-it-emoji](#markdown-it-emoji)
   - [markdown-it-expand-tabs](#markdown-it-expand-tabs)
-  - [markdown-it-sub](#markdown-it-sub)
-  - [markdown-it-sup](#markdown-it-sup)
   - [markdown-it-regexp](#markdown-it-regexp)
   - [markdown-it-regexp-enhanced](#markdown-it-regexp-enhanced)
+  - [markdown-it-sub](#markdown-it-sub)
+  - [markdown-it-sup](#markdown-it-sup)
+  - [markdown-it-table-of-contents](#markdown-it-table-of-contents)
   - [mdvariables](#mdvariables)
   - [mdvariables-enhanced](#mdvariables-enhanced)
 
@@ -495,36 +496,6 @@ markdownRenderer
 ```
 
 
-### markdown-it-sub
-
- - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-sub)
- - **Defaults**: None
- - **Is Modified Package**: No
-
-```javascript
-var markdownItSubPlugin = MarkdownItPlugins.getPlugin('markdown-it-sub');
-markdownRenderer
-    .use(markdownItSubPlugin);
-
-markdownRenderer.render('H~2~0') // => '<p>H<sub>2</sub>O</p>'
-```
-
-
-### markdown-it-sup
-
- - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-sup)
- - **Defaults**: None
- - **Is Modified Package**: No
-
-```javascript
-var markdownItSupPlugin = MarkdownItPlugins.getPlugin('markdown-it-sup');
-markdownRenderer
-    .use(markdownItSupPlugin);
-
-markdownRenderer.render('29^th^') // => '<p>29<sup>th</sup></p>'
-```
-
-
 ### markdown-it-regexp
 
  - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-regexp)
@@ -567,6 +538,109 @@ can be achieved with `utils`
 ```javascript
 utils.between('<a>foo</a>, '<a>', '</a>') // => 'foo'
 ```
+
+
+### markdown-it-sub
+
+ - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-sub)
+ - **Defaults**: None
+ - **Is Modified Package**: No
+
+```javascript
+var markdownItSubPlugin = MarkdownItPlugins.getPlugin('markdown-it-sub');
+markdownRenderer
+    .use(markdownItSubPlugin);
+
+markdownRenderer.render('H~2~0') // => '<p>H<sub>2</sub>O</p>'
+```
+
+
+### markdown-it-sup
+
+ - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-sup)
+ - **Defaults**: None
+ - **Is Modified Package**: No
+
+```javascript
+var markdownItSupPlugin = MarkdownItPlugins.getPlugin('markdown-it-sup');
+markdownRenderer
+    .use(markdownItSupPlugin);
+
+markdownRenderer.render('29^th^') // => '<p>29<sup>th</sup></p>'
+```
+
+
+### markdown-it-table-of-contents
+
+A table of contents plugin for Markdown-it. Based on https://github.com/samchrisinger/markdown-it-toc but 
+simpler, a bit more customizable and with a default slugifier that matches that of https://www.npmjs.com/package/markdown-it-anchor.
+
+ - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-table-of-contents)
+ - **Defaults**: Yes
+ - **Is Modified Package**: No
+
+```javascript
+var markdownItTableOfContentsPlugin = MarkdownItPlugins.getPlugin('markdown-it-table-of-contents');
+var markdownItAnchorPlugin = MarkdownItPlugins.getPlugin('markdown-it-abbr');
+markdownRenderer
+    .use(markdownItAnchorPlugin, markdownItAnchorOptions)  // for links
+    .use(markdownItTableOfContentsPlugin);
+```
+
+Then add `[[toc]]` where you want the table of contents to be added in your markdown.
+
+For example, this markdown:
+``` markdown
+# Heading
+
+[[toc]]
+
+## Sub heading 1
+Some nice text
+
+## Sub heading 2
+Some even nicer text
+```
+
+... would render this HTML using the default options specified in "usage" above:
+``` html
+<h1 id="heading">Heading</h1>
+
+<div class="table-of-contents">
+  <ul>
+    <li><a href="#heading">Heading</a>
+      <ul>
+        <li><a href="#sub-heading-1">Sub heading 1</a></li>
+        <li><a href="#sub-heading-2">Sub heading 2</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<h2 id="sub-heading-1">Sub heading 1</h2>
+<p>Some nice text</p>
+
+<h2 id="sub-heading-2">Sub heading 2</h2>
+<p>Some even nicer text</p>
+```
+
+** Options **
+
+You may specify options when `use`ing the plugin. like so:
+``` javascript
+markdownRenderer
+    .use(markdownItTableOfContentsPlugin, options);
+```
+
+These options are available:
+
+Name              | Description                               | Default
+------------------|-------------------------------------------|------------------------------------
+"includeLevel"    | Headings levels to use (2 for h2:s etc)   | [1, 2]
+"containerClass"  | The class for the container DIV           | "table-of-contents"
+"slugify"         | A custom slugification function           | [string.js' `slugify`][slugify]
+
+[slugify]: http://stringjs.com/#methods/slugify
 
 
 ### mdvariables
