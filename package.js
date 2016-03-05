@@ -53,6 +53,8 @@ Package.onUse(function(api) {
 	api.addFiles('plugins/markdown-it-expand-tabs.js');
 	api.addFiles('plugins/markdown-it-footnote.js');
 	api.addFiles('plugins/markdown-it-implicit-figures.js');
+	api.addFiles('plugins/markdown-it-ins-del.js');
+	api.addFiles('plugins/markdown-it-mark.js');
 	api.addFiles('plugins/markdown-it-regexp.js');
 	api.addFiles('plugins/markdown-it-regexp-enhanced.js');
 	api.addFiles('plugins/markdown-it-sanitizer.js');
@@ -63,5 +65,7 @@ Package.onUse(function(api) {
 	api.addFiles('plugins/markdown-it-video.js');
 	api.addFiles('plugins/mdvariables.js');
 	api.addFiles('plugins/mdvariables-enhanced.js');
+
+
 
 });

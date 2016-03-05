@@ -21,6 +21,8 @@ A bunch of plugins for markdown-it wrapped for Meteor.
   - [markdown-it-expand-tabs](#markdown-it-expand-tabs)
   - [markdown-it-footnote](#markdown-it-footnote)
   - [markdown-it-implicit-figures](#markdown-it-implicit-figures)
+  - [markdown-it-ins-del](#markdown-it-ins-del)
+  - [markdown-it-mark](#markdown-it-mark)
   - [markdown-it-regexp](#markdown-it-regexp)
   - [markdown-it-regexp-enhanced](#markdown-it-regexp-enhanced)
   - [markdown-it-sanitizer](#markdown-it-sanitizer)
@@ -617,6 +619,43 @@ Output:
     <figcaption>text</figcaption>
   </figure>
   ```
+
+
+### markdown-it-ins-del
+
+`<ins>` and `<s>` tag plugin for [markdown-it](https://github.com/markdown-it/markdown-it) markdown parser with editor attributions.
+
+ - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-ins-del)
+ - **Defaults**: None
+ - **Is Modified Package**: No
+
+```javascript
+var markdownItInsDelPlugin = MarkdownItPlugins.getPlugin('markdown-it-ins-del');
+markdownRenderer
+    .use(markdownItInsDelPlugin)
+    .disable('strikethrough');
+
+markdownRenderer.render('++insert++[WZ]') // => '<p><ins>insert</ins><sup>WZ</sup></p>' 
+markdownRenderer.render('~~delete~~[WZ]') // => '<p><s>delete</s><sup>WZ</sup></p>' 
+```
+
+
+### markdown-it-mark
+
+`<mark>` tag plugin for [markdown-it](https://github.com/markdown-it/markdown-it) markdown parser.
+
+ - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-mark)
+ - **Defaults**: None
+ - **Is Modified Package**: No
+
+```javascript
+var markdownItMarkPlugin = MarkdownItPlugins.getPlugin('markdown-it-mark');
+markdownRenderer
+    .use(markdownItMarkPlugin);
+
+markdownRenderer.render('==marked==') // => '<p><mark>marked</mark></p>'
+```
+
 
 ### markdown-it-regexp
 
