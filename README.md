@@ -16,6 +16,7 @@ A bunch of plugins for markdown-it wrapped for Meteor.
   - [markdown-it-attrs](#markdown-it-attrs)
   - [markdown-it-center-text](#markdown-it-center-text)
   - [markdown-it-checkbox](#markdown-it-checkbox)
+  - [markdown-it-container](#markdown-it-container)
   - [markdown-it-emoji](#markdown-it-emoji)
   - [markdown-it-expand-tabs](#markdown-it-expand-tabs)
   - [markdown-it-sub](#markdown-it-sub)
@@ -313,6 +314,80 @@ markdownRenderer.render('[ ] unchecked') // =>
 //    <label for="cbx_0">unchecked</label>
 //  </div>
 // </p>
+```
+
+
+### markdown-it-container
+
+With this plugin you can create block containers like:
+
+```
+::: warning
+*here be dragons*
+:::
+```
+
+.... and specify how they should be rendered. If no renderer defined, `<div>` with
+container name class will be created:
+
+```html
+<div class="warning">
+<em>here be dragons</em>
+</div>
+```
+
+Markup is the same as for [fenced code blocks](http://spec.commonmark.org/0.18/#fenced-code-blocks).
+Difference is, that marker use another character and content is rendered as markdown markup.
+
+ - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-container)
+ - **Defaults**: No
+ - **Is Modified Package**: No
+
+```javascript
+var markdownItContainerPlugin = MarkdownItPlugins.getPlugin('markdown-it-container');
+markdownRenderer
+    .use(markdownItContainerPlugin, name, [, options]);
+```
+
+**Params**:
+- __name__ - container name (mandatory)
+- __options:__
+   - __validate__ - optional, function to validate tail after opening marker, should
+     return `true` on success.
+   - __render__ - optional, renderer function for opening/closing tokens.
+   - __marker__ - optional (`:`), character to use in delimiter.
+
+**Example**:
+```js
+var markdownItContainerPlugin = MarkdownItPlugins.getPlugin('markdown-it-container');
+
+markdownRenderer.use(markdownItContainerPlugin, 'spoiler', {
+
+  validate: function(params) {
+    return params.trim().match(/^spoiler\s+(.*)$/);
+  },
+
+  render: function (tokens, idx) {
+    var m = tokens[idx].info.trim().match(/^spoiler\s+(.*)$/);
+
+    if (tokens[idx].nesting === 1) {
+      // opening tag
+      return '<details><summary>' + m[1] + '</summary>\n';
+
+    } else {
+      // closing tag
+      return '</details>\n';
+    }
+  }
+});
+
+console.log(md.render('::: spoiler click me\n*content*\n:::\n'));
+
+// Output:
+//
+// <details><summary>click me</summary>
+// <p><em>content</em></p>
+// </details>
 ```
 
 
