@@ -16,6 +16,7 @@ A bunch of plugins for markdown-it wrapped for Meteor.
   - [markdown-it-attrs](#markdown-it-attrs)
   - [markdown-it-checkbox](#markdown-it-checkbox)
   - [markdown-it-emoji](#markdown-it-emoji)
+  - [markdown-it-expand-tabs](#markdown-it-expand-tabs)
   - [markdown-it-sub](#markdown-it-sub)
   - [markdown-it-sup](#markdown-it-sup)
   - [markdown-it-regexp](#markdown-it-regexp)
@@ -367,6 +368,38 @@ style:
 .emoji {
   height: 1.2em;
 }
+```
+
+### markdown-it-expand-tabs
+
+**What it does**
+- Replaces leading tabs with spaces in fenced code blocks
+- Nothing else
+
+**Why is this useful?**
+
+Say you have tab-indented code in a markdown file and you want the rendered code to
+take up less visual space horizontally. This plugin will help. If you're not in that
+situation, then this plugin probably isn't for you.
+
+ - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-expand-tabs)
+ - **Defaults**: None
+ - **Is Modified Package**: No
+
+```javascript
+var markdownItExpandTabsPlugin = MarkdownItPlugins.getPlugin('markdown-it-expand-tabs');
+markdownRenderer
+    .use(markdownItExpandTabsPlugin);
+
+markdownRenderer.render('\tsomething\n\t\tsmtg') // => '    something\n        smtg'
+```
+
+The default behavior is to convert leading tabs into two spaces each. You can choose
+an alternate tab width thusly:
+
+```js
+markdownRenderer
+    .use(markdownItExpandTabsPlugin, {tabWidth: 4});
 ```
 
 
