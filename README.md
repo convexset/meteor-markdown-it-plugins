@@ -14,6 +14,7 @@ A bunch of plugins for markdown-it wrapped for Meteor.
   - [markdown-it-abbr](#markdown-it-abbr)
   - [markdown-it-anchor](#markdown-it-anchor)
   - [markdown-it-attrs](#markdown-it-attrs)
+  - [markdown-it-checkbox](#markdown-it-checkbox)
   - [markdown-it-sub](#markdown-it-sub)
   - [markdown-it-sup](#markdown-it-sup)
   - [markdown-it-regexp](#markdown-it-regexp)
@@ -237,6 +238,63 @@ Output:
 ```
 
 If you need finer control, look into [decorate](https://github.com/rstacruz/markdown-it-decorate).
+
+
+### markdown-it-checkbox
+
+This plugin allows to create checkboxes for tasklists as discussed [here](http://talk.commonmark.org/t/task-lists-in-standard-markdown/41).
+
+ - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-checkbox)
+ - **Defaults**: None
+ - **Is Modified Package**: No
+
+```javascript
+var markdownItCheckboxPlugin = MarkdownItPlugins.getPlugin('markdown-it-checkbox');
+markdownRenderer
+    .use(markdownItCheckboxPlugin);
+
+markdownRenderer.render('[ ] unchecked') // =>
+// <p>
+//  <input type="checkbox" id="checkbox0">
+//  <label for="checkbox0">unchecked</label>
+// </p>
+
+markdownRenderer.render('[x] checked') // =>
+// <p>
+//  <input type="checkbox" id="checkbox0" checked="true">
+//  <label for="checkbox0">checked</label>
+// </p>
+```
+
+A number of options may be passed in:
+ - `divWrap`: wrap div arround checkbox. this makes it possible to use it for example with [Awesome Bootstrap Checkbox](https://github.com/flatlogic/awesome-bootstrap-checkbox/)
+   * **Type:** `Boolean`
+   * **Default:** `false`
+ - `divClass`: classname of div wrapper. will only be used if `divWrap` is enanbled.
+   * **Type:** `String`
+   * **Default:** `"checkbox"`
+ - `idPrefix`: the id of the checkboxs input contains the prefix and an incremental number starting with `0`. i.e. `checkbox1` for the 2nd checkbox.
+   * **Type:** `String`
+   * **Default:** `"checkbox"`
+
+
+```javascript
+var markdownItCheckboxPlugin = MarkdownItPlugins.getPlugin('markdown-it-checkbox');
+markdownRenderer
+    .use(markdownItCheckboxPlugin, {
+        divWrap: true,
+        divClass: 'cb',
+        idPrefix: 'cbx_'
+    });
+
+markdownRenderer.render('[ ] unchecked') // =>
+// <p>
+//  <div classname="cb">
+//    <input type="checkbox" id="cbx_0">
+//    <label for="cbx_0">unchecked</label>
+//  </div>
+// </p>
+```
 
 
 ### markdown-it-sub
