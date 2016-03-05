@@ -44,6 +44,7 @@ Package.onUse(function(api) {
 	// The Plugins
 	////////////////////////////////////////////////////////////////////////
 	api.addFiles('plugins/markdown-it-abbr.js');
+	api.addFiles('plugins/markdown-it-anchor.js');
 	api.addFiles('plugins/markdown-it-attrs.js');
 	api.addFiles('plugins/markdown-it-sub.js');
 	api.addFiles('plugins/markdown-it-sup.js');

@@ -12,6 +12,7 @@ A bunch of plugins for markdown-it wrapped for Meteor.
 - [Usage](#usage)
 - [The Plugins](#the-plugins)
   - [markdown-it-abbr](#markdown-it-abbr)
+  - [markdown-it-anchor](#markdown-it-anchor)
   - [markdown-it-attrs](#markdown-it-attrs)
   - [markdown-it-sub](#markdown-it-sub)
   - [markdown-it-sup](#markdown-it-sup)
@@ -121,6 +122,55 @@ generates
 <p>The <abbr title="Hyper Text Markup Language">HTML</abbr> specification
 is maintained by the <abbr title="World Wide Web Consortium">W3C</abbr>.</p>
 ```
+
+
+### markdown-it-anchor
+
+Header anchors for [markdown-it].
+
+ - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-anchor)
+ - **Defaults**: Yes
+ - **Is Modified Package**: No
+
+```javascript
+var markdownItAnchorPlugin = MarkdownItPlugins.getPlugin('markdown-it-abbr');
+var markdownItAnchorOptions = MarkdownItPlugins.getDefaultOptions('markdown-it-abbr');
+markdownRenderer.use(markdownItAnchorPlugin, markdownItAnchorOptions);
+
+// or...
+// markdownRenderer.use(markdownItAnchorPlugin, opts);
+```
+
+The `opts` object can contain:
+
+Name              | Description                                 | Default
+------------------|---------------------------------------------|------------------------------------
+`level`           | Minimum level to apply anchors on.          | 1
+`slugify`         | A custom slugification function.            | [string.js' `slugify`][slugify]
+`permalink`       | Whether to add permalinks next to titles.   | `false`
+`renderPermalink` | A custom permalink rendering function.      | See [`index.es6.js`](https://github.com/valeriangalliat/markdown-it-anchor/blob/master/index.es6.js)
+`permalinkClass`  | The class of the permalink anchor.          | `header-anchor`
+`permalinkSymbol` | The symbol in the permalink anchor.         | `¶`
+`permalinkBefore` | Place the permalink before the title.       | `false`
+`callback`        | Called with token and info after rendering. | `undefined`
+
+[slugify]: http://stringjs.com/#methods/slugify
+
+The `renderPermalink` function takes the slug, an options object with
+the above options, and then all the usual markdown-it rendering
+arguments.
+
+All headers above `level` will then have an `id` attribute with a slug
+of their content, and if `permalink` is `true`, a `¶` symbol linking to
+the header itself.
+
+You may want to use the [link symbol](http://graphemica.com/🔗) as
+`permalinkSymbol`, or a symbol from your favorite web font.
+
+The `callback` option is a function that will be called at the end of
+rendering with the `token` and an `info` object.  The `info` object has
+`title` and `slug` properties with the token content and the slug used
+for the identifier.
 
 
 ### markdown-it-attrs
