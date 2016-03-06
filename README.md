@@ -1188,19 +1188,19 @@ function initMarkdown() {
         return FlowRouter.getParam('notesId');
         break;
       case "notes-title":
-        return CourseNotes.getItemProperty(APlusTools.Route.flowRouterReactiveParam('notesId'), 'name');
+        return CourseNotes.getItemProperty(FlowRouter.getParam('notesId'), 'name');
         break;
       case "course-id":
         return FlowRouter.getParam('courseId');
         break;
       case "course-title":
-        return Course.getItemProperty(APlusTools.Route.flowRouterReactiveParam('courseId'), 'name');
+        return Course.getItemProperty(FlowRouter.getParam('courseId'), 'name');
         break;
       case "course-session-id":
         return FlowRouter.getParam('sessionId');
         break;
       case "course-session-title":
-        return CourseSession.getItemProperty(APlusTools.Route.flowRouterReactiveParam('sessionId'), 'name');
+        return CourseSession.getItemProperty(FlowRouter.getParam('sessionId'), 'name');
         break;
       default:
     }
