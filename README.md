@@ -7,7 +7,6 @@ A bunch of plugins for markdown-it wrapped for Meteor.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [Install](#install)
 - [Usage](#usage)
 - [The Plugins](#the-plugins)
@@ -21,6 +20,7 @@ A bunch of plugins for markdown-it wrapped for Meteor.
   - [markdown-it-expand-tabs](#markdown-it-expand-tabs)
   - [markdown-it-footnote](#markdown-it-footnote)
   - [markdown-it-implicit-figures](#markdown-it-implicit-figures)
+  - [markdown-it-imsize-no-autofill](#markdown-it-imsize-no-autofill)
   - [markdown-it-ins-del](#markdown-it-ins-del)
   - [markdown-it-mark](#markdown-it-mark)
   - [markdown-it-modify-token](#markdown-it-modify-token)
@@ -623,6 +623,24 @@ Output:
   ```
 
 
+### markdown-it-imsize-no-autofill
+
+Modified to remove the autofill option which requires `fs` and other things.
+
+ - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-imsize)
+ - **Defaults**: None
+ - **Is Modified Package**: Yes
+
+```javascript
+var markdownImsizeMinusPlugin = MarkdownItPlugins.getPlugin('markdown-it-imsize-no-autofill');
+markdownRenderer
+    .use(markdownImsizeMinusPlugin);
+
+markdownRenderer.render('![test](image.png =100x200)')
+// => '<p><img src="image.png" alt="test" width="100" height="200"></p>' 
+```
+
+
 ### markdown-it-ins-del
 
 `<ins>` and `<s>` tag plugin for [markdown-it](https://github.com/markdown-it/markdown-it) markdown parser with editor attributions.
@@ -679,7 +697,7 @@ var markdownRenderer = markdownit({
     modifyToken: function (token, env) {
         switch (token.type) {
             case 'image':
-                token.attrObj['max-width'] = '640px';
+                token.attrObj['width'] = '640px';
                 break;
         }
     }
@@ -705,8 +723,11 @@ var markdownItModifyTokenModPlugin = MarkdownItPlugins.getPlugin('markdown-it-mo
 markdownRenderer
     .use(markdownItModifyTokenModPlugin, function (token, env) {
         switch (token.type) {
-            case 'image':
-                token.attrObj['max-width'] = '640px';
+            case 'input':
+                // checkboxes disabled
+                if (token.attrObj.type === "checkbox") {
+                    token.attrObj['disabled'] = true;
+                }
                 break;
         }
     });

@@ -59,6 +59,7 @@ Package.onUse(function(api) {
 	api.addFiles('plugins/markdown-it-expand-tabs.js');
 	api.addFiles('plugins/markdown-it-footnote.js');
 	api.addFiles('plugins/markdown-it-implicit-figures.js');
+	api.addFiles('plugins/markdown-it-imsize-no-autofill.js');
 	api.addFiles('plugins/markdown-it-ins-del.js');
 	api.addFiles('plugins/markdown-it-mark.js');
 	api.addFiles('plugins/markdown-it-modify-token.js');
