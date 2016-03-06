@@ -1328,15 +1328,20 @@ function initMarkdown() {
   //  .disable('strikethrough');
 
   // markdown-it-modify-token
+  // do this last!
   var markdownItModifyTokenModPlugin = MarkdownItPlugins.getPlugin('markdown-it-modify-token-modified');
   markdownRenderer
     .use(markdownItModifyTokenModPlugin, function(token, env) {
+      // console.log(token) // do this to have a look at the token stream
       switch (token.type) {
-        // case 'image':
-        //  token.attrObj['width'] = '640px';
-        //  break;
+        case 'link_open':
+          if (token.attrObj['href'] && (token.attrObj['href'].toString().indexOf("://") !== -1)) {
+            token.attrObj['target'] = '_blank';
+          }
+          break;
+        case 'checkbox_input':
+          token.attrObj['disabled'] = true;
       }
     });
-
 }
 ```
