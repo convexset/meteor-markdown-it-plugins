@@ -35,6 +35,7 @@ A bunch of plugins for markdown-it wrapped for Meteor.
   - [markdown-it-video](#markdown-it-video)
   - [mdvariables](#mdvariables)
   - [mdvariables-enhanced](#mdvariables-enhanced)
+- [My Big Usage Example](#my-bit-usage-example)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -696,9 +697,9 @@ var markdownRenderer = markdownit({
     // modify token parameters
     modifyToken: function (token, env) {
         switch (token.type) {
-            case 'image':
-                token.attrObj['width'] = '640px';
-                break;
+          case 'image':
+              token.attrObj['width'] = '640px';
+              break;
         }
     }
 });
@@ -723,12 +724,9 @@ var markdownItModifyTokenModPlugin = MarkdownItPlugins.getPlugin('markdown-it-mo
 markdownRenderer
     .use(markdownItModifyTokenModPlugin, function (token, env) {
         switch (token.type) {
-            case 'input':
-                // checkboxes disabled
-                if (token.attrObj.type === "checkbox") {
-                    token.attrObj['disabled'] = true;
-                }
-                break;
+          case 'image':
+              token.attrObj['width'] = '640px';
+              break;
         }
     });
 ```
@@ -1089,3 +1087,256 @@ markdownRenderer.use(
 // "[[[strong|something something]]]" => "<strong>something something</strong>" 
 ```
 
+
+## My Big Usage Example
+
+This is how one might use all of these together. Here, I already have `markdown-it` installed thorugh `smoiz:markdown-it`.
+
+```javascript
+//
+// Some stuff for accessing the next three items globally...
+//
+
+var markdownRendererCommonmark;
+var markdownRendererPlain;
+var markdownRenderer;
+
+if (Meteor.isClient) {
+  Template.registerHelper('markdownIt', function markdownIt(s) {
+    return markdownRenderer.render(s);
+  });
+  Template.registerHelper('markdownItInline', function markdownItInline(s) {
+    return markdownRenderer.renderInline(s);
+  });
+  Template.registerHelper('markdownItCommonmark', function markdownItCommonmark(s) {
+    return markdownRendererCommonmark.render(s);
+  });
+  Template.registerHelper('markdownItCommonmarkInline', function markdownItCommonmarkInline(s) {
+    return markdownRendererCommonmark.renderInline(s);
+  });
+  Template.registerHelper('markdownItPlain', function markdownRendererPlain(s) {
+    return markdownRendererPlain.render(s);
+  });
+  Template.registerHelper('markdownItPlainInline', function markdownItPlainInline(s) {
+    return markdownRendererPlain.renderInline(s);
+  });
+} else {
+  initMarkdown();
+}
+
+function initMarkdown() {
+  console.info("Initializing Markdown renderer...");
+
+  markdownRendererCommonmark = markdownit('commonmark');
+  markdownRendererPlain = markdownit();
+  markdownRenderer = markdownit({
+    // Enable HTML tags in source
+    html: true,
+    // Use '/' to close single tags (<br />).
+    xhtmlOut: true,
+
+    // This is only for full CommonMark compatibility.
+    // Convert '\n' in paragraphs into <br>
+    breaks: true,
+    // CSS language prefix for fenced blocks. Can be useful for external highlighters.
+    langPrefix: '',
+    // Autoconvert URL-like text to links
+    linkify: true,
+
+    // Enable some language-neutral replacement + quotes beautification
+    typographer: true,
+
+    // Double + single quotes replacement pairs, when typographer enabled,
+    // and smartquotes on. Could be either a String or an Array.
+    //
+    // For example, you can use '«»„“' for Russian, '„“‚‘' for German,
+    // and ['«\xA0', '\xA0»', '‹\xA0', '\xA0›'] for French (including nbsp).
+    quotes: '“”‘’',
+  });
+
+  // markdown-it-imsize
+  var markdownImsizeMinusPlugin = MarkdownItPlugins.getPlugin('markdown-it-imsize-no-autofill');
+  markdownRenderer
+    .use(markdownImsizeMinusPlugin);
+
+  // markdown-it-sub and markdown-it-sup
+  // 'H~2~0' => '<p>H<sub>2</sub>O</p>' 
+  // '29^th^' => '<p>29<sup>th</sup></p>' 
+  markdownRenderer.use(MarkdownItPlugins.getPlugin('markdown-it-sub'));
+  markdownRenderer.use(MarkdownItPlugins.getPlugin('markdown-it-sup'));
+
+  // markdown-it-regexp
+  var MarkdownItRegExp = MarkdownItPlugins.getPlugin('markdown-it-regexp-enhanced');
+  markdownRenderer.use(MarkdownItRegExp(/@@([\w\s]+)@@/,
+    function(match, utils) {
+      return '<i class="icon ' + match[1] + '"></i>';
+    }
+  ));
+
+  // MdVariables Enhanced
+  var MdVariablesEnhanced = MarkdownItPlugins.getPlugin('mdvariables-enhanced');
+  // '[[[title]]]' => '<p>The Title of this Page</p>' 
+  function mdVariablesDataDirectory(name) {
+    switch (name) {
+      case "title":
+        return $("title").text();
+        break;
+      case "random-number":
+        return Math.random();
+        break;
+      case "notes-id":
+        return FlowRouter.getParam('notesId');
+        break;
+      case "notes-title":
+        return CourseNotes.getItemProperty(APlusTools.Route.flowRouterReactiveParam('notesId'), 'name');
+        break;
+      case "course-id":
+        return FlowRouter.getParam('courseId');
+        break;
+      case "course-title":
+        return Course.getItemProperty(APlusTools.Route.flowRouterReactiveParam('courseId'), 'name');
+        break;
+      case "course-session-id":
+        return FlowRouter.getParam('sessionId');
+        break;
+      case "course-session-title":
+        return CourseSession.getItemProperty(APlusTools.Route.flowRouterReactiveParam('sessionId'), 'name');
+        break;
+      default:
+    }
+  }
+  markdownRenderer.use(
+    MdVariablesEnhanced(
+      mdVariablesDataDirectory,
+      /\[\[\[([a-zA-Z\-_0-9]+)\]\]\]/
+    )
+  );
+
+  markdownRenderer.use(
+    MdVariablesEnhanced(
+      function(name) {
+        var split = name.split('|').map(x => x.trim());
+        var tag = split[0];
+        var thing = split[1];
+        return "<" + tag + ">" + thing + "</" + tag + ">";
+      },
+      /\[\[\[([a-zA-Z\-_0-9]+)\|([a-zA-Z\-_0-9\s]+)\]\]\]/,
+      match => match[1].toLowerCase() + "|" + match[2]
+    )
+  );
+
+  // markdown-it-abbr
+  var markdownItAbbrPlugin = MarkdownItPlugins.getPlugin('markdown-it-abbr');
+  markdownRenderer.use(markdownItAbbrPlugin);
+
+  // markdown-it-anchor
+  markdownRenderer.use(
+    MarkdownItPlugins.getPlugin('markdown-it-anchor'),
+    _.extend(MarkdownItPlugins.getDefaultOptions('markdown-it-anchor'), {
+      level: 1,
+      // permalink: true,
+      // permalinkSymbol: "🔗",
+    })
+  );
+
+  // markdown-it-attrs
+  var markdownItAttrsPlugin = MarkdownItPlugins.getPlugin('markdown-it-attrs');
+  markdownRenderer.use(markdownItAttrsPlugin);
+
+  // markdown-it-center-text
+  var markdownItCenterTextPlugin = MarkdownItPlugins.getPlugin('markdown-it-center-text');
+  markdownRenderer
+    .use(markdownItCenterTextPlugin);
+
+  // markdown-it-checkbox
+  var markdownItCheckboxPlugin = MarkdownItPlugins.getPlugin('markdown-it-checkbox');
+  markdownRenderer.use(markdownItCheckboxPlugin, {
+    divWrap: true,
+    divClass: 'ui checkbox',
+    idPrefix: 'markdown_checkbox_'
+  });
+
+  // markdown-it-container
+  var markdownItContainerPlugin = MarkdownItPlugins.getPlugin('markdown-it-container');
+  markdownRenderer.use(markdownItContainerPlugin, 'spoiler', {
+    validate: function(params) {
+      return params.trim().match(/^spoiler\s+(.*)$/);
+    },
+    render: function(tokens, idx) {
+      var m = tokens[idx].info.trim().match(/^spoiler\s+(.*)$/);
+
+      if (tokens[idx].nesting === 1) {
+        // opening tag
+        return '<details><summary>' + m[1] + '</summary>\n';
+      } else {
+        // closing tag
+        return '</details>\n';
+      }
+    }
+  });
+
+  // markdown-it-emoji
+  var markdownItEmojiPlugin = MarkdownItPlugins.getPlugin('markdown-it-emoji');
+  markdownRenderer.use(markdownItEmojiPlugin);
+
+  // markdown-it-expand-tabs
+  var markdownItExpandTabsPlugin = MarkdownItPlugins.getPlugin('markdown-it-expand-tabs');
+  markdownRenderer.use(markdownItExpandTabsPlugin, {
+    tabWidth: 4
+  });
+
+  // markdown-it-footnote
+  markdownRenderer.use(MarkdownItPlugins.getPlugin('markdown-it-footnote'));
+
+  // markdown-it-sanitizer
+  markdownRenderer.use(MarkdownItPlugins.getPlugin('markdown-it-sanitizer'));
+
+  // markdown-it-expand-tabs
+  var markdownItImplicitFiguresPlugin = MarkdownItPlugins.getPlugin('markdown-it-implicit-figures');
+  markdownRenderer
+    .use(markdownItImplicitFiguresPlugin, {
+      dataType: true,
+      figcaption: true
+    });
+
+  // markdown-it-table-of-contents
+  // the anchors have already been added...
+  var markdownItTableOfContentsPlugin = MarkdownItPlugins.getPlugin('markdown-it-table-of-contents');
+  markdownRenderer
+    .use(markdownItTableOfContentsPlugin,
+      _.extend(MarkdownItPlugins.getDefaultOptions('markdown-it-table-of-contents'), {
+        includeLevel: [1, 2, 3]
+      }));
+
+  // markdown-it-video
+  var markdownItVideoPlugin = MarkdownItPlugins.getPlugin('markdown-it-video');
+  markdownRenderer
+    .use(markdownItVideoPlugin);
+
+  // markdown-it-mark
+  var markdownItMarkPlugin = MarkdownItPlugins.getPlugin('markdown-it-mark');
+  markdownRenderer
+    .use(markdownItMarkPlugin);
+
+  // markdown-it-smartarrows
+  // markdownRenderer.use(MarkdownItPlugins.getPlugin('markdown-it-smartarrows'));
+
+  // markdown-it-ins-del
+  // var markdownItInsDelPlugin = MarkdownItPlugins.getPlugin('markdown-it-ins-del');
+  // markdownRenderer
+  //  .use(markdownItInsDelPlugin)
+  //  .disable('strikethrough');
+
+  // markdown-it-modify-token
+  var markdownItModifyTokenModPlugin = MarkdownItPlugins.getPlugin('markdown-it-modify-token-modified');
+  markdownRenderer
+    .use(markdownItModifyTokenModPlugin, function(token, env) {
+      switch (token.type) {
+        // case 'image':
+        //  token.attrObj['width'] = '640px';
+        //  break;
+      }
+    });
+
+}
+```
