@@ -23,6 +23,8 @@ A bunch of plugins for markdown-it wrapped for Meteor.
   - [markdown-it-implicit-figures](#markdown-it-implicit-figures)
   - [markdown-it-ins-del](#markdown-it-ins-del)
   - [markdown-it-mark](#markdown-it-mark)
+  - [markdown-it-modify-token](#markdown-it-modify-token)
+  - [markdown-it-modify-token-modified](#markdown-it-modify-token-modified)
   - [markdown-it-regexp](#markdown-it-regexp)
   - [markdown-it-regexp-enhanced](#markdown-it-regexp-enhanced)
   - [markdown-it-sanitizer](#markdown-it-sanitizer)
@@ -654,6 +656,60 @@ markdownRenderer
     .use(markdownItMarkPlugin);
 
 markdownRenderer.render('==marked==') // => '<p><mark>marked</mark></p>'
+```
+
+
+### markdown-it-modify-token
+
+**Note: May not work perfectly for MarkdownIt 5.0. (A polyfill of the [Token prototype](https://github.com/markdown-it/markdown-it/blob/master/lib/token.js) was necessary.)**
+
+[markdown-it](https://github.com/markdown-it/markdown-it) plugin for modifying tokens including content or element attributes in the markdown document. For example it can modify image or link attributes.
+
+ - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-modify-token)
+ - **Defaults**: None
+ - **Is Modified Package**: No
+
+```javascript
+var markdownRenderer = markdownit({
+    /*
+     * other options
+     */
+
+    // modify token parameters
+    modifyToken: function (token, env) {
+        switch (token.type) {
+            case 'image':
+                token.attrObj['max-width'] = '640px';
+                break;
+        }
+    }
+});
+var markdownItModifyTokenPlugin = MarkdownItPlugins.getPlugin('markdown-it-modify-token');
+markdownRenderer
+    .use(markdownItModifyTokenPlugin);
+```
+
+
+### markdown-it-modify-token-modified
+
+**Note: May not work perfectly for MarkdownIt 5.0. (A polyfill of the [Token prototype](https://github.com/markdown-it/markdown-it/blob/master/lib/token.js) was necessary.)**
+
+[markdown-it](https://github.com/markdown-it/markdown-it) plugin for modifying tokens including content or element attributes in the markdown document. For example it can modify image or link attributes. Modified to move options off from renderer creation.
+
+ - **Original Source**:  See [markdown-it-modify-token](#markdown-it-modify-token)
+ - **Defaults**: None
+ - **Is Modified Package**: Yes
+
+```javascript
+var markdownItModifyTokenModPlugin = MarkdownItPlugins.getPlugin('markdown-it-modify-token-modified');
+markdownRenderer
+    .use(markdownItModifyTokenModPlugin, function (token, env) {
+        switch (token.type) {
+            case 'image':
+                token.attrObj['max-width'] = '640px';
+                break;
+        }
+    });
 ```
 
 

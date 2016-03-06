@@ -19,7 +19,6 @@
     "markdown-it-mark": "^2.0.0",
     "markdown-it-modify-token": "^1.0.2",
     "markdown-it-regexp": "^0.4.0",
-    "markdown-it-responsive": "^0.1.0",
     "markdown-it-sanitizer": "^0.4.1",
     "markdown-it-smartarrows": "^1.0.1",
     "markdown-it-sub": "^1.0.0",

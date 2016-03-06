@@ -29,6 +29,7 @@ Package.onUse(function(api) {
 	////////////////////////////////////////////////////////////////////////
 	api.addFiles('tools/fake-require.js');
 	api.addFiles('tools/registrations.js');
+	api.addFiles('tools/polyfiller.js');
 
 	////////////////////////////////////////////////////////////////////////
 	// Fake Require Registrations
@@ -40,6 +41,11 @@ Package.onUse(function(api) {
 	api.addFiles('tools/util-browser/0.0.2/is-buffer.js');
 	api.addFiles('tools/util-browser/0.0.2/util-browser.js');
 	
+	////////////////////////////////////////////////////////////////////////
+	// Misc
+	////////////////////////////////////////////////////////////////////////
+	api.addFiles('misc/token-prototype.js');
+
 	////////////////////////////////////////////////////////////////////////
 	// The Plugins
 	////////////////////////////////////////////////////////////////////////
@@ -55,6 +61,8 @@ Package.onUse(function(api) {
 	api.addFiles('plugins/markdown-it-implicit-figures.js');
 	api.addFiles('plugins/markdown-it-ins-del.js');
 	api.addFiles('plugins/markdown-it-mark.js');
+	api.addFiles('plugins/markdown-it-modify-token.js');
+	api.addFiles('plugins/markdown-it-modify-token-modified.js');
 	api.addFiles('plugins/markdown-it-regexp.js');
 	api.addFiles('plugins/markdown-it-regexp-enhanced.js');
 	api.addFiles('plugins/markdown-it-sanitizer.js');
