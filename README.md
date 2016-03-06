@@ -35,7 +35,7 @@ A bunch of plugins for markdown-it wrapped for Meteor.
   - [markdown-it-video](#markdown-it-video)
   - [mdvariables](#mdvariables)
   - [mdvariables-enhanced](#mdvariables-enhanced)
-- [My Big Usage Example](#my-bit-usage-example)
+- [My Big Usage Example](#my-big-usage-example)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
