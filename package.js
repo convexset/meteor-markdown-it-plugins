@@ -1,6 +1,6 @@
 Package.describe({
 	name: 'convexset:markdown-it-plugins',
-	version: '0.0.2',
+	version: '0.1.0',
 	summary: 'Some plugins for MarkdownIt wrapped for Meteor',
 	git: 'https://github.com/convexset/meteor-markdown-it-plugins',
 	documentation: 'README.md'
@@ -15,7 +15,6 @@ Package.onUse(function(api) {
 		'convexset:package-utils@0.1.12',
 		'convexset:string.js@3.3.1',
 		'stevezhu:lodash@4.5.1',
-		// 'peerlibrary:util@0.3.0'
 	]);
 
 	////////////////////////////////////////////////////////////////////////
@@ -74,7 +73,5 @@ Package.onUse(function(api) {
 	api.addFiles('plugins/markdown-it-video.js');
 	api.addFiles('plugins/mdvariables.js');
 	api.addFiles('plugins/mdvariables-enhanced.js');
-
-
 
 });
