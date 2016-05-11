@@ -1,6 +1,6 @@
 Package.describe({
 	name: 'convexset:markdown-it-plugins',
-	version: '0.1.0',
+	version: '0.1.0_1',
 	summary: 'Some plugins for MarkdownIt wrapped for Meteor',
 	git: 'https://github.com/convexset/meteor-markdown-it-plugins',
 	documentation: 'README.md'
@@ -12,9 +12,9 @@ Package.onUse(function(api) {
 		'ecmascript',
 		'es5-shim',
 		'underscore',
-		'convexset:package-utils@0.1.12',
+		'convexset:package-utils@0.1.14',
 		'convexset:string.js@3.3.1',
-		'stevezhu:lodash@4.5.1',
+		'stevezhu:lodash@4.6.1',
 	]);
 
 	////////////////////////////////////////////////////////////////////////
