@@ -1,4 +1,11 @@
 /* global MarkdownItPlugins: true */
+
+import { checkNpmVersions } from 'meteor/tmeasday:check-npm-versions';
+checkNpmVersions({
+  'package-utils': '^0.2.1'
+});
+const PackageUtilities = require('package-utils');
+
 var _mip = function MarkdownItPlugins() {}; 
 MarkdownItPlugins = new _mip();
 _MarkdownItPlugins = {};

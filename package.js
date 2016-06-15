@@ -1,20 +1,20 @@
 Package.describe({
 	name: 'convexset:markdown-it-plugins',
-	version: '0.1.0_1',
+	version: '0.1.0_2',
 	summary: 'Some plugins for MarkdownIt wrapped for Meteor',
 	git: 'https://github.com/convexset/meteor-markdown-it-plugins',
 	documentation: 'README.md'
 });
 
 Package.onUse(function(api) {
-	api.versionsFrom('1.2.1');
+	api.versionsFrom('1.3.1');
 	api.use([
 		'ecmascript',
 		'es5-shim',
 		'underscore',
-		'convexset:package-utils@0.1.14',
 		'convexset:string.js@3.3.1',
 		'stevezhu:lodash@4.6.1',
+		'tmeasday:check-npm-versions@0.3.1'
 	]);
 
 	////////////////////////////////////////////////////////////////////////
