@@ -1,5 +1,7 @@
 # MarkdownItPlugins
 
+**(This package might best be regarded as deprecated given the changes in Meteor 1.3.)**
+
 A bunch of plugins for markdown-it wrapped for Meteor.
 
 ## Table of Contents
