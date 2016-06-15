@@ -1,4 +1,5 @@
 /* global MarkdownItPlugins: true */
+/* global _MarkdownItPlugins: true */
 
 import { checkNpmVersions } from 'meteor/tmeasday:check-npm-versions';
 checkNpmVersions({

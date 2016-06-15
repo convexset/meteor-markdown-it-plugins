@@ -1,6 +1,6 @@
 babel-compiler@6.8.0
 babel-runtime@0.1.9
-convexset:markdown-it-plugins@0.1.0_2
+convexset:markdown-it-plugins@0.1.0_3
 convexset:string.js@3.3.1
 ecmascript@0.4.4
 ecmascript-runtime@0.2.11

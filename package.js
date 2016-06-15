@@ -1,6 +1,6 @@
 Package.describe({
 	name: 'convexset:markdown-it-plugins',
-	version: '0.1.0_2',
+	version: '0.1.0_3',
 	summary: 'Some plugins for MarkdownIt wrapped for Meteor',
 	git: 'https://github.com/convexset/meteor-markdown-it-plugins',
 	documentation: 'README.md'
@@ -11,7 +11,6 @@ Package.onUse(function(api) {
 	api.use([
 		'ecmascript',
 		'es5-shim',
-		'underscore',
 		'convexset:string.js@3.3.1',
 		'stevezhu:lodash@4.6.1',
 		'tmeasday:check-npm-versions@0.3.1'
@@ -33,8 +32,6 @@ Package.onUse(function(api) {
 	////////////////////////////////////////////////////////////////////////
 	// Fake Require Registrations
 	////////////////////////////////////////////////////////////////////////	
-	api.addFiles('tools/underscore/underscore-1.8.3.js');
-
 	api.addFiles('tools/util-browser/0.0.2/inherits.js');
 	api.addFiles('tools/util-browser/0.0.2/process.js');
 	api.addFiles('tools/util-browser/0.0.2/is-buffer.js');
@@ -73,5 +70,4 @@ Package.onUse(function(api) {
 	api.addFiles('plugins/markdown-it-video.js');
 	api.addFiles('plugins/mdvariables.js');
 	api.addFiles('plugins/mdvariables-enhanced.js');
-
 });

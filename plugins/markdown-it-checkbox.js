@@ -1,7 +1,10 @@
-var _, checkboxReplace;
+import { checkNpmVersions } from 'meteor/tmeasday:check-npm-versions';
+checkNpmVersions({
+  'underscore' : '^1.8.3',
+});
+const _ = require('underscore');
 
-// _ = require('underscore');
-_ = fakeRequire('underscore|1.8.3');
+var checkboxReplace;
 
 var defaultOptions = {
   divWrap: false,
