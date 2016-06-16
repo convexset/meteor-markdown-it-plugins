@@ -1,4 +1,5 @@
 var items = {};
+const PackageUtilities = require('package-utils');
 
 fakeRequireRegister = function fakeRequireRegister(name, payload) {
 	if (!!items[name]) {

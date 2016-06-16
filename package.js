@@ -1,6 +1,6 @@
 Package.describe({
 	name: 'convexset:markdown-it-plugins',
-	version: '0.1.0_5',
+	version: '0.1.0_6',
 	summary: 'Some plugins for MarkdownIt wrapped for Meteor',
 	git: 'https://github.com/convexset/meteor-markdown-it-plugins',
 	documentation: 'README.md'
