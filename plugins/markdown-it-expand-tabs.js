@@ -1,5 +1,4 @@
-// var repeat = require('lodash.repeat');
-var repeat = fakeRequire('lodash').repeat;
+var repeat = require('lodash.repeat');
 
 // module.exports = function(md, opts) {
 function expandTabsPlugin(md, opts) {

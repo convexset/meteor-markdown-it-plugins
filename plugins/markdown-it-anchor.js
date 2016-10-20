@@ -6,8 +6,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //   value: true
 // });
 
-// var _string = require('string');
-var _string = fakeRequire('string');
+var _string = require('string');
 
 var _string2 = _interopRequireDefault(_string);
 

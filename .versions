@@ -1,7 +1,6 @@
 babel-compiler@6.8.0
 babel-runtime@0.1.9
-convexset:markdown-it-plugins@0.1.0_6
-convexset:string.js@3.3.1
+convexset:markdown-it-plugins@0.1.1
 ecmascript@0.4.4
 ecmascript-runtime@0.2.11
 es5-shim@4.5.11
@@ -9,6 +8,5 @@ meteor@1.1.15
 modules@0.6.2
 modules-runtime@0.6.4
 promise@0.7.2
-stevezhu:lodash@4.6.1
 tmeasday:check-npm-versions@0.3.1
 underscore@1.0.9

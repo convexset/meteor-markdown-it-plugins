@@ -6,8 +6,7 @@ A bunch of plugins for markdown-it wrapped for Meteor.
 
 ## Table of Contents
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<!-- MarkdownTOC -->
 
 - [Install](#install)
 - [Usage](#usage)
@@ -28,7 +27,6 @@ A bunch of plugins for markdown-it wrapped for Meteor.
   - [markdown-it-modify-token](#markdown-it-modify-token)
   - [markdown-it-modify-token-modified](#markdown-it-modify-token-modified)
   - [markdown-it-regexp](#markdown-it-regexp)
-  - [markdown-it-regexp-enhanced](#markdown-it-regexp-enhanced)
   - [markdown-it-sanitizer](#markdown-it-sanitizer)
   - [markdown-it-smartarrows](#markdown-it-smartarrows)
   - [markdown-it-sub](#markdown-it-sub)
@@ -39,7 +37,8 @@ A bunch of plugins for markdown-it wrapped for Meteor.
   - [mdvariables-enhanced](#mdvariables-enhanced)
 - [My Big Usage Example](#my-big-usage-example)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<!-- /MarkdownTOC -->
+
 
 ## Install
 
@@ -758,7 +757,7 @@ markdownRenderer
 
  - **Original Source**: [npm](https://www.npmjs.com/package/markdown-it-regexp)
  - **Defaults**: None
- - **Is Modified Package**: No. Modified version at [markdown-it-regexp-enhanced](#markdown-it-regexp-enhanced)
+ - **Is Modified Package**: No.
 
 ```javascript
 var MarkdownItRegExp = MarkdownItPlugins.getPlugin('markdown-it-regexp-enhanced');
@@ -771,31 +770,6 @@ markdownRenderer.use(MarkdownItRegExp(/@(\w+)/,
 ```
 
 Note that `utils` here only contains the `escape` method.
-
-### markdown-it-regexp-enhanced
-
- - **Original Source**: See [markdown-it-regexp](#markdown-it-regexp)
- - **Defaults**: None
- - **Is Modified Package**: Yes
-
-```javascript
-var MarkdownItRegExp = MarkdownItPlugins.getPlugin('markdown-it-regexp-enhanced');
-markdownRenderer.use(MarkdownItRegExp(/@(\w+)/,
-    function(match, utils) {
-        var url = 'http://example.org/u/' + match[1];
-        return '<a href="' + utils.escapeHTML(url) + '">' + utils.escapeHTML(match[1]) + '</a>';
-    }
-));
-```
-
-In this version, `utils` is populated with methods from [`string`](https://www.npmjs.com/package/string). For example,
-```javascript
-S('<a>foo</a>').between('<a>', '</a>').s // => 'foo'
-```
-can be achieved with `utils`
-```javascript
-utils.between('<a>foo</a>, '<a>', '</a>') // => 'foo'
-```
 
 
 ### markdown-it-sanitizer

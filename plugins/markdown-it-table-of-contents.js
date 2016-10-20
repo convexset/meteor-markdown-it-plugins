@@ -1,9 +1,7 @@
 "use strict";
-// var string = require("string");
-var string = fakeRequire('string');
+var string = require('string');
 
-// var assign = require("lodash.assign");
-var assign = fakeRequire('lodash').assign;
+var assign = require('lodash.assign');
 
 var defaults = {
   includeLevel: [ 1, 2 ],

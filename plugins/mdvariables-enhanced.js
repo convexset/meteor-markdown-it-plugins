@@ -1,5 +1,5 @@
 // var Plugin = require('markdown-it-regexp');
-var Plugin = MarkdownItPlugins.getPlugin('markdown-it-regexp-enhanced');
+var Plugin = MarkdownItPlugins.getPlugin('markdown-it-regexp');
 
 var MdVariablesEnhanced = function MdVariablesEnhanced(dataFunction, regex, matchMapper = (x => x[1])) {
     return Plugin(
