@@ -10,7 +10,7 @@ Npm.depends({
 	'string': '3.3.3',
 	'lodash.assign': '4.2.0',
 	'lodash.repeat': '4.1.0',
-})
+});
 
 Package.onUse(function(api) {
 	api.versionsFrom('1.3.1');
@@ -24,7 +24,7 @@ Package.onUse(function(api) {
 	// Core
 	////////////////////////////////////////////////////////////////////////
 	api.addFiles('markdown-it-plugins.js');
-    api.export('MarkdownItPlugins');
+	api.export('MarkdownItPlugins');
 
 	////////////////////////////////////////////////////////////////////////
 	// Fake Require
